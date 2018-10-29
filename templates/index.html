@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sales Order</title>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.usa.js"></script>
+</head>
+<body>
+<h1>Sales Order For USA</h1>
+<div id="container1" style="position: relative; width: 800px; height: 600px;"></div>
+
+<script>
+    var USdata = {
+        'AK':'105','AL':'111','AR':'84','AZ':'100','CA':'94','CO':'89','CT':'104','DC':'81','DE':'101','FL':'110','GA':'90','HI':'84','IA':'100','ID':'86','IL':'106','IN':'84','KS':'89','KY':'111','LA':'108','MA':'92','MD':'90','ME':'106','MI':'97','MN':'106','MO':'99','MS':'111','MT':'87','NC':'89','ND':'86','NE':'101','NH':'104','NJ':'103','NM':'111','NV':'99','NY':'100','OH':'102','OK':'98','OR':'93','PA':'110','RI':'90','SC':'110','SD':'114','TN':'106','TX':'87','UT':'99','VA':'97','VT':'107','WA':'87','WI':'86','WV':'89','WY':'107'
+        };
+    var USmap = new Datamap({
+        element: document.getElementById("container1"),
+        responsive: true,
+        scope: 'usa', //currently supports 'usa' and 'world', however with custom map data you can specify your own
+        projection: 'equirectangular', //style of projection to be used. try "mercator"
+        height: 520, //if not null, datamaps will grab the height of 'element'
+        fills: {
+            defaultFill: '#EDDC4E'
+        },
+        geographyConfig: {
+            highlightBorderColor: '#bada55',
+            popupTemplate: function (geography, data) {
+                return '<div class="hoverinfo">' + geography.properties.name + '</div>';
+            },
+            highlightBorderWidth: 2
+        }
+    });
+
+    d3.select(window).on('resize', function() {
+        map.resize();
+    });
+
+    USmap.labels({'customLabelText': USdata});
+</script>
+</div>
+</body>
+</html>
